@@ -2,6 +2,8 @@
 <%@ include file="../includes/Navbar.jsp" %>
 <%@ include file="subnav_admin.jsp" %>
 
+<link rel="stylesheet" href="/static/css/switch.css">
+
 <div class="wrapper">
 
     <%@ include file="trucks_sidebar.jsp"%>
@@ -25,13 +27,15 @@
                             </td>
                             <td>
                                 <form:input path="newTruckName" type="text" class="form-control" id="inputNewTruckName" placeholder="${truck.truckName}"></form:input>
-                                <%--${truck.truckName}--%>
-                            </td>
-                            <td
-                                <%--<form:input path="newTruckDescription" type="text" class="form-control" id="inputNewTruckDescription" placeholder="${truck.truckDescription}"></form:input>--%>
                             </td>
                             <td>
-                                <p>no</p>
+                                <form:input path="newTruckDescription" type="text" class="form-control" id="inputNewTruckDescription" placeholder="${truck.truckDescription}"></form:input>
+                            </td>
+                            <td>
+                                <label class="switch">
+                                    <form:input path="isTruckRunning" type="checkbox"></form:input>
+                                    <div class="slider round"></div>
+                                </label>
                             </td>
                         </tr>
                     </c:forEach>

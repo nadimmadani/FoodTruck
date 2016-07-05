@@ -117,6 +117,7 @@ public class AdminController {
 
         model.addAttribute("newTruckList", owner.getTruckList());
 
+        model.addAttribute("adminVO", new AdminVO());
         return "/admin/truck_list";
     }
 
