@@ -1,6 +1,8 @@
-<div id="sidebar-wrapper" class="col-sm-2">
+
+
+<div id="sidebar-wrapper">
     <div id="sidebar">
-        <ul class="nav list-group">
+        <ul class="nav list-group row">
             <li>
                 <a class="list-group-item" href="/admin/trucklist">List All Trucks</a>
             </li>

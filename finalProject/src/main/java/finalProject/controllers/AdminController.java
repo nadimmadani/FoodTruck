@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -121,6 +122,12 @@ public class AdminController {
         return "/admin/truck_list";
     }
 
+    @RequestMapping(value = "/admin/delete/{id}")
+    public String deleteTruck(@PathVariable int id) {
+        truckService.deleteTruck(id);
+
+        return "redirect:/admin/truck_list";
+    }
 
     //region HELPER METHODS
     public Owner getLoggedInOwner() {
