@@ -1,5 +1,6 @@
 package finalProject.domain.VO;
 
+import finalProject.domain.Location;
 import finalProject.domain.Truck;
 
 /**
@@ -13,6 +14,7 @@ public class AdminVO {
     private String newUserName;
     private String newPassword;
     private String[] newTruckList;
+    private Location truckLocation;
 
     public String getNewUserName() {
         return newUserName;
@@ -60,5 +62,13 @@ public class AdminVO {
 
     public void setNewTruckList(String[] newTruckList) {
         this.newTruckList = newTruckList;
+    }
+
+    public Location getTruckLocation() {
+        return truckLocation;
+    }
+
+    public void setTruckLocation(Location truckLocation) {
+        this.truckLocation = truckLocation;
     }
 }

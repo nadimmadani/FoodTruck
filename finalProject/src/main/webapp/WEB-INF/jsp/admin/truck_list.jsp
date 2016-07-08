@@ -4,40 +4,47 @@
 
 <script>
 
-    var pos;
-    navigator.geolocation.getCurrentPosition(function(position) {
-        pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
+//    function getCords() {
 
-        };
-        console.log(pos);
-    })
+        var cords;
+        navigator.geolocation.getCurrentPosition(function (position) {
+
+            cordsLat = (position.coords.latitude);
+            cordsLong = (position.coords.longitude);
+
+        })
 
     function updateTruck(id, ver){
+
         var name = $('#name' + id).val();
         var desc = $('#desc' + id).val();
         var isRunning = $('#isRunning'+ id + ' input:checked');
         var isRunningValue;
+
         if(typeof isRunning[0] != 'undefined') {
             isRunningValue = 'true';
         }else {
             isRunningValue = 'false';
         }
-//        isRunning.val(isRunning[0].checked ? "true" : "false");
-//        var isRunning = $('#isRunning' + id).val()
-//
+        console.log(cords);
 
+        var truckLocation = {
+
+            coordinates: cords
+        };
         var truckToUpdate = {
             "id": id,
             "version": ver,
             "truckMenu": null,
-            "truckLocation": null,
+            "truckLocation":truckLocation,
             "truckName": name,
             "truckDescription": desc,
             "isRunning": isRunningValue
-        }
+        };
 
+
+        console.log(cordsLat);
+        console.log(cordsLong);
         $.ajax({
 //            headers: {
 //                'Accept': 'application/json',
@@ -45,51 +52,19 @@
 //            },
             type: "post",
             data: truckToUpdate,
-            url: "/rest/update",
+            url: "/rest/update/" + cordsLat + "/" + cordsLong + ".",
             async: true,
             dataType: "json",
             success: function (data) {
+                $('#ver' + id).val(ver++);
                 console.log("success");
                 console.log(data);
+            },
+            error: function (data) {
+                var a = 2;
             }
         });
-
-        console.log(truckToUpdate);
     }
-
-//delete truck
-
-    function deleteTruck(id, ver) {
-        var id = $('#id' + id).val();
-        var id = $('#ver' + id).val();
-
-
-        var truckToDelete = {
-            "id": id,
-            "version": ver
-        }
-
-        $.ajax({
-            //            headers: {
-            //                'Accept': 'application/json',
-            //                'Content-Type': 'application/json'
-            //            },
-            type: "get",
-            data: truckToUpdate,
-            url: "/rest/delete",
-            async: true,
-            dataType: "json",
-            success: function (data) {
-                console.log("success");
-                console.log(data);
-            }
-        });
-
-        console.log(truckToUpdate);
-    }
-
-
-
 
 </script>
 
@@ -116,7 +91,7 @@
                     <c:forEach var="truck" items="${newTruckList}">
                         <hidden id="id${truck.id}" value="${truck.id}"/>
                         <hidden id="ver${truck.id}" value="${truck.version}"/>
-                        <hidden id="loc${truck.id}" value="${truck.truckLocation}"
+
                         <tr>
                             <td>
                                 ${truck.id}

@@ -1,6 +1,7 @@
 package finalProject.rest;
 
 import finalProject.controllers.AdminController;
+import finalProject.domain.Location;
 import finalProject.domain.Owner;
 import finalProject.domain.Truck;
 import finalProject.repositories.TruckRepository;
@@ -30,17 +31,15 @@ public class UpdateTruckController {
         return owner.getTruckList();
     }
 
-    @RequestMapping(value = "update", method = RequestMethod.POST)
-    public Truck updateTruck( Truck truck) {
+    @RequestMapping(value = "update/{cordsLat}/{cordsLong}", method = RequestMethod.POST)
+    public Truck updateTruck(Truck truck, @PathVariable String cordsLat, @PathVariable String cordsLong) {
+        Location location = new Location();
+        location.setCoordinates(cordsLat + ", " + cordsLong);
+
+        truck.setTruckLocation(location);
         return truckService.saveTruck(truck);
     }
 
-    @RequestMapping(value = "delete", method = RequestMethod.DELETE)
-    public String deleteTruck(@PathVariable int id){
-        truckService.deleteTruck(id);
-
-        return "redirect:/admin/truck_list";
-    }
 
     //region HELPER METHODS
     public Owner getLoggedInOwner() {
