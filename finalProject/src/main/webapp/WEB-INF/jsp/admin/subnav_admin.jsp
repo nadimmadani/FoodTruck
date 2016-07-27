@@ -12,13 +12,13 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <a class="navbar-brand" href="#">Admin</a>
+                    <a class="navbar-brand" href="#">Your Truck(s)</a>
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse-2">
                     <ul class="nav navbar-nav">
                             <%--PAGE LINKS--%>
-                        <li><a href="/admin/trucklist">Trucks</a></li>
-                        <li><a href="#">Menu</a></li>
+                        <li><a href="/admin/trucklist">Edit</a></li>
+                        <li><a href="/admin/addtruck/">Add</a></li>
                         <li><a href="#">Profile</a></li>
                     </ul>
                 </div>

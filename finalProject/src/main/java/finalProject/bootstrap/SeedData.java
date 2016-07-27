@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by ryanmada1 on 6/28/2016.
- */
+* Created by ryanmada1 on 6/28/2016.
+*/
 @Component
 public class SeedData implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -32,18 +32,21 @@ public class SeedData implements ApplicationListener<ContextRefreshedEvent> {
 
     private void generateOwnerAndTruckData() {
         Owner owner1 = new Owner();
-        owner1.setUserName("Ryan");
+        owner1.setUserName("test");
         owner1.setPassword("123");
 
-        List truckList1 = new ArrayList<Truck>();
         Truck truck1 = new Truck();
 
-        truck1.setTruckName("TacoTruck");
-        truck1.setTruckDescription("blah blah blah");
+        truck1.setTruckName("truck1");
+        truck1.setTruckDescription("desc1");
 
-        truckList1.add(truck1);
+        Truck truck2 = new Truck();
+        truck2.setTruckName("truck2");
+        truck2.setTruckDescription("desc2");
 
-        owner1.setTruckList(truckList1);
+
+        owner1.getTruckList().add(truck1);
+        owner1.getTruckList().add(truck2);
 
         ownerService.saveOwner(owner1);
     }

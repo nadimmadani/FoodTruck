@@ -3,7 +3,22 @@
 <%@ include file="subnav_admin.jsp" %>
 
 <script>
+    $(document).ready(function () {
 
+        $('.txtbox').on("change", function () {
+            var values = this.id.split("z");
+            var truckId = values[1];
+            console.log("Text box change");
+//            console.log(truckId);
+//            var ver = $('#ver' + truckId).attr("value");
+//            console.log(ver);
+//            console.log($('#ver' + truckId));
+//            console.log($('#namez' + truckId).val());
+            updateTruck(truckId);
+
+        })
+
+    });
 //    function getCords() {
 
         var cords;
@@ -14,10 +29,31 @@
 
         })
 
-    function updateTruck(id, ver){
+    function deleteTruck(id) {
+        console.log("deleteTruck called with id: " + id)
 
-        var name = $('#name' + id).val();
-        var desc = $('#desc' + id).val();
+        $.ajax({
+            type: "DELETE",
+            url: "/rest/deleteTruck/" + id,
+            timeout: 5000,
+            success: function () {
+                console.log("success");
+                console.log(id);
+                $("#rowId" + id).remove();
+            }
+        });
+
+    }
+
+    function updateTruck(id){
+
+        console.log("updateTruck called, with id: " + id);
+
+        var ver = $('#ver' + id).attr("value");
+        var name = $('#namez' + id).val();
+//        console.log("name: " + name);
+
+        var desc = $('#descz' + id).val();
         var isRunning = $('#isRunning'+ id + ' input:checked');
         var isRunningValue;
 
@@ -26,7 +62,7 @@
         }else {
             isRunningValue = 'false';
         }
-        console.log(cords);
+//        console.log(cords);
 
         var truckLocation = {
 
@@ -41,10 +77,11 @@
             "truckDescription": desc,
             "isRunning": isRunningValue
         };
+//        console.log("=============")
+//        console.log(truckToUpdate);
 
-
-        console.log(cordsLat);
-        console.log(cordsLong);
+//        console.log(cordsLat);
+//        console.log(cordsLong);
         $.ajax({
 //            headers: {
 //                'Accept': 'application/json',
@@ -58,7 +95,7 @@
             success: function (data) {
                 $('#ver' + id).val(ver++);
                 console.log("success");
-                console.log(data);
+//                console.log(data);
             },
             error: function (data) {
                 var a = 2;
@@ -72,7 +109,7 @@
 
 <div class="wrapper">
 
-    <%@ include file="trucks_sidebar.jsp"%>
+
     <div id="main-wrapper" class="col-sm-10">
 
         <h4>When active is checked the app will update the map with your current location.</h4>
@@ -89,27 +126,28 @@
                 </thead>
                 <form:form cssClass="form-horizontal" modelAttribute="adminVO" action="/admin/trucklist" method="post">
                     <c:forEach var="truck" items="${newTruckList}">
-                        <hidden id="id${truck.id}" value="${truck.id}"/>
-                        <hidden id="ver${truck.id}" value="${truck.version}"/>
+                        <hidden id="id${truck.id}" value="${truck.id}"></hidden>
+                        <hidden id="ver${truck.id}" value="${truck.version}"></hidden>
 
-                        <tr>
+                        <tr id="rowId${truck.id}">
                             <td>
                                 ${truck.id}
                             </td>
                             <td>
-                                <form:input path="newTruckName" type="text" class="form-control" id="name${truck.id}" value="${truck.truckName}"></form:input>
+                                <%--<input type="text" class="form-control txtbox" id="namez${truck.id}" value="${truck.truckName}"/>--%>
+                                <input type="text" class="form-control txtbox" id="namez${truck.id}" value="${truck.truckName}"/>
                             </td>
                             <td>
-                                <form:input path="newTruckDescription" type="text" class="form-control" id="desc${truck.id}" value="${truck.truckDescription}"></form:input>
+                                <input type="text" class="form-control txtbox" id="descz${truck.id}" value="${truck.truckDescription}"/>
                             </td>
                             <td>
                                 <label id="isRunning${truck.id}" class="switch">
-                                    <input type="checkbox" ${truck.isRunning == 'true' ? 'checked' : ''}/>
+                                    <input type="checkbox" onclick="updateTruck(${truck.id})" ${truck.isRunning == 'true' ? 'checked' : ''}/>
                                     <div class="slider round"></div>
                                 </label>
                             </td>
-                            <td><button class="btn btn-default" type="button" onclick="updateTruck(${truck.id}, ${truck.version})" >Update</button></td>
-                            <td><button class="btn btn-default" type="button" onclick="deleteTruck(${truck.id}, ${truck.version})" >Delete</button></td>
+                            <td><button class="btn btn-default" type="button" onclick="updateTruck(${truck.id})" >Update</button></td>
+                            <td><button class="btn btn-default" type="button" onclick="deleteTruck(${truck.id})" >Delete</button></td>
                         </tr>
                     </c:forEach>
                 </form:form>

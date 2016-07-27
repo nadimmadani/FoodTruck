@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%--FAVICON--%>
 
-
+    <link rel="icon" href="/static/images/truck-152-237857.png" type="image/x-icon"/>
     <%--JQUERY--%>
     <c:url value="/webjars/jquery/2.1.4/jquery.min.js" var="jquery" />
     <script type="application/javascript" src="${jquery}"></script>
@@ -24,7 +24,7 @@
     <%--<c:url value="/webjars/bootstrap/3.3.4/css/bootstrap.min.css" var="bootstrapCSS" />--%>
     <%--<link href="${bootstrapCSS}" rel="stylesheet" media="screen">--%>
 
-    <title>Food Truck Locator</title>
+    <title> Food Truck Locator</title>
 
 </head>
 <body>

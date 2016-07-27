@@ -9,9 +9,6 @@
     </div>
     <hr/>
     <div class="row">
-        <div class="col-lg-2 col-md-2 col-sm-2">
-            <%@ include file="trucks_sidebar.jsp" %>
-        </div>
         <div class="col-lg-9 col-md-9 col-sm-9 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
             <form:form cssClass="form-horizontal" modelAttribute="AdminVO" action="/admin/addtruck" method="post">
                 <fieldset>

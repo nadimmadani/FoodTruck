@@ -1,7 +1,11 @@
 package finalProject.domain;
 
+import finalProject.services.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -27,15 +31,17 @@ public class Owner {
 
     private String password;
 
+
     public  Owner() {
-//        this.truckList = new ArrayList<>();
+        this.truckList = new ArrayList<>();
     }
 
     public Owner(String userName, String password) {
-//        this.truckList = new ArrayList<>();
+        this();
         this.setUserName(userName);
         this.setPassword(password);
     }
+
 
     public Integer getId() {
         return id;
@@ -84,4 +90,5 @@ public class Owner {
     public void setUserName(String userName) {
         this.userName = userName;
     }
+
 }

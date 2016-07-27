@@ -129,14 +129,7 @@ public class AdminController {
         return "redirect:/admin/truck_list";
     }
 
-    @RequestMapping(value = "/home/map", method = RequestMethod.GET)
-    public  String getMapList(Model model) {
-        model.addAttribute("newTruckList", truckService.listAllTrucks());
 
-        model.addAttribute("adminVO", new AdminVO());
-
-        return "/home/map";
-    }
 
     //region HELPER METHODS
     public Owner getLoggedInOwner() {
