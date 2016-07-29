@@ -11,4 +11,5 @@ public interface OwnerRepository extends CrudRepository<Owner, Integer> {
 
     Owner findByUserName(String userName);
 
+
 }

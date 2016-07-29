@@ -19,15 +19,15 @@
         })
 
     });
-//    function getCords() {
+    //    function getCords() {
 
-        var cords;
-        navigator.geolocation.getCurrentPosition(function (position) {
+    var cords;
+    navigator.geolocation.getCurrentPosition(function (position) {
 
-            cordsLat = (position.coords.latitude);
-            cordsLong = (position.coords.longitude);
+        cordsLat = (position.coords.latitude);
+        cordsLong = (position.coords.longitude);
 
-        })
+    })
 
     function deleteTruck(id) {
         console.log("deleteTruck called with id: " + id)
@@ -105,57 +105,30 @@
 
 </script>
 
-<link rel="stylesheet" href="/static/css/switch.css">
+<div class="col-sm-12">
+    <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Truck Name</th>
+            <th>Description</th>
+            <th>Active</th>
+        </tr>
+        </thead>
+        <form:form cssClass="form-horizontal" modelAttribute="adminVo" action="/admin/editist/${truck.id}" method="post">
 
-<div class="wrapper">
+        <tr>
+            <td>
+                    ${truck.id}
+            </td>
+            <td>
+                    <%--<input type="text" class="form-control txtbox" id="namez${truck.id}" value="${truck.truckName}"/>--%>
+                <input type="text" class="form-control txtbox" id="namez${truck.id}" value="${truck.truckName}"/>
+            </td>
+                <td>
+            <input type="text" class="form-control txtbox" id="descz${truck.id}" value="${truck.truckDescription}"/>
+        </td>
 
-
-    <div id="main-wrapper" class="col-sm-10">
-
-        <h4>When active is checked the app will update the map with your current location.</h4>
-
-        <div class="col-sm-12">
-            <table class="table table-striped table-hover">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Truck Name</th>
-                    <%--<th>Description</th>--%>
-                    <th>Active</th>
-                </tr>
-                </thead>
-                <form:form cssClass="form-horizontal" modelAttribute="adminVO" action="/admin/trucklist" method="post">
-                    <c:forEach var="truck" items="${newTruckList}">
-                        <hidden id="id${truck.id}" value="${truck.id}"></hidden>
-                        <hidden id="ver${truck.id}" value="${truck.version}"></hidden>
-
-                        <tr id="rowId${truck.id}">
-                            <td>
-                                ${truck.id}
-                            </td>
-                            <td>
-                                <%--<input type="text" class="form-control txtbox" id="namez${truck.id}" value="${truck.truckName}"/>--%>
-                                <input type="text" class="form-control txtbox" id="namez${truck.id}" value="${truck.truckName}"/>
-                            </td>
-                            <%--<td>--%>
-                                <%--<input type="text" class="form-control txtbox" id="descz${truck.id}" value="${truck.truckDescription}"/>--%>
-                            <%--</td>--%>
-                            <td>
-                                <label id="isRunning${truck.id}" class="switch">
-                                    <input type="checkbox" onclick="updateTruck(${truck.id})" ${truck.isRunning == 'true' ? 'checked' : ''}/>
-                                    <div class="slider round"></div>
-                                </label>
-                            </td>
-                            <td><a href="/admin/editlist/${truck.id}"><button class="btn btn-default" type="button"  >Edit</button></a></td>
-                            <td><button class="btn btn-default" type="button" onclick="deleteTruck(${truck.id})" >Delete</button></td>
-                        </tr>
-                    </c:forEach>
-                </form:form>
-            </table>
-        </div>
-    </div>
-</div>
-
-
+        </form:form>
 
 <%@ include file="../includes/footer.jsp" %>

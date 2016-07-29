@@ -130,6 +130,15 @@ public class AdminController {
     }
 
 
+    @RequestMapping(value = "/admin/truckedit/{id}", method = RequestMethod.GET)
+    public String getEditTruck(@PathVariable int id, Model model) {
+        Truck truckToUpdate = truckService.getTruckById(id);
+
+        model.addAttribute("newTruck", truckToUpdate);
+        model.addAttribute("adminVO", new AdminVO());
+
+        return "/admin/truck_edit";
+    }
 
     //region HELPER METHODS
     public Owner getLoggedInOwner() {

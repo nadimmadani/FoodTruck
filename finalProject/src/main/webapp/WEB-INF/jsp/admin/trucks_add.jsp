@@ -2,6 +2,8 @@
 <%@ include file="../includes/Navbar.jsp" %>
 <%@ include file="subnav_admin.jsp" %>
 
+<html xmlns:th="http://www.thymeleaf.org">
+
 
 <div class="container">
     <div class="row">
@@ -52,6 +54,32 @@
                     </div>
                 </fieldset>
             </form:form>
+
+            <%--upload--%>
+
+
+            <div th:if="${message}">
+                <h2 th:text="${message}"/>
+            </div>
+
+            <div>
+                <form method="POST" enctype="multipart/form-data" action="/upload">
+                    <table>
+                        <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+                        <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+                    </table>
+                </form>
+            </div>
+
+            <div>
+                <ul style="list-style: none;">
+                    <li th:each="file : ${files}">
+                        <a th:href="${file.href}" th:text="${file.rel}" />
+                    </li>
+                </ul>
+            </div>
+
+            <%--//end of upload--%>
         </div>
     </div>
 </div>

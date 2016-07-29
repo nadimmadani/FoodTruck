@@ -15,6 +15,15 @@ public class AdminVO {
     private String newPassword;
     private String[] newTruckList;
     private Location truckLocation;
+    private Truck newTruck;
+
+    public Truck getNewTruck() {
+        return newTruck;
+    }
+
+    public void setNewTruck(Truck newTruck) {
+        this.newTruck = newTruck;
+    }
 
     public String getNewUserName() {
         return newUserName;
