@@ -1,13 +1,9 @@
 <%@ include file="../includes/header.jsp" %>
-<%@ include file="../includes/Navbar.jsp" %>
-<%@ include file="../admin/subnav_admin.jsp" %>
 
 <script src="http://maps.googleapis.com/maps/api/js?v=3.2&libraries=geometry&sensor=false"
         type="text/javascript"></script>
 
-<div id="map" style="width: 500px; height: 400px; max-width: 100%"></div>
-
-
+<%--<div id="map" style="width: 50%; height: 50%; max-width: 100%"></div>--%>
 <script type="text/javascript">
 var locations = [];
     $.ajax({
@@ -25,20 +21,22 @@ var locations = [];
                 if(data[i].isRunning == "true") {
                     console.log(data[i].truckName + data[i].truckLocation.coordinates + i);
 
+                    var id = data[i].id;
                     var s =  data[i].truckLocation.coordinates;
                     var res = s.split(",");
                     var lat = +res[0];
                     var long = +res[1];
 //                    s.index
 
+                    console.log("id at i" + id);
                     console.log("Lat" + lat);
-                    console.log(data[i]);
+                    console.log("data at i:" + data[i]);
                     console.log("Long" + long);
 
                     console.log("truckName: " + data[i].truckName);
 
                      locations.push(
-                             [ data[i].truckName, lat, long, i ]);
+                             [ data[i].truckName, lat, long, i, data[i].id ]);
                 }
             }
             locations.push(['Ryans Taco Truck', 44.977230, -93.000, 4]);
@@ -50,8 +48,8 @@ var locations = [];
 
     });
 
-    function makeNewLocation(truckName, lat, long, i) {
-        return { tName: truckName, latitude: lat, longitude: long, idx:i };
+    function makeNewLocation(truckName, lat, long, i, id) {
+        return { tName: truckName, latitude: lat, longitude: long, idx: i, id:id };
     }
 
     var pos;
@@ -64,7 +62,6 @@ var locations = [];
         };
         console.log(pos);
 
-        console.log("outside" + pos);
         var map = new google.maps.Map(document.getElementById('map'), {
 
             zoom: 10,
@@ -88,6 +85,7 @@ var locations = [];
 //        };
 
         for (i = 0; i < locations.length; i++) {
+            console.log("The id is: " + id);
             console.log(locations[i]);
             marker = new google.maps.Marker({
                 position: new google.maps.LatLng(locations[i][1], locations[i][2]),
@@ -99,11 +97,106 @@ var locations = [];
                 return function() {
                     infowindow.setContent(locations[i][0]);
                     infowindow.open(map, marker);
+                    alert(locations[i][4]);
                 }
             })(marker, i));
         }
     });
 </script>
+
+
+<c:choose>
+<c:when test="${loggedInUser != 'anonymousUser'}">
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6" style="padding: 0px; margin: 0px">
+                <div id="map"  class="sizeContent" class="col-md-6"></div>
+            </div>
+            <div class="col-lg-6 hidden-md-down" id="contentLoggedIn">
+
+                    <%--begin thumbnail--%>
+                        <div class="row">
+                            <div class="col-sm-7 col-md-7">
+                                <div class="thumbnail">
+                                    <img src="/static/images/food-truck.jpg" alt="...">
+                                    <div class="caption">
+                                        <h3>Thumbnail label</h3>
+                                        <p>...</p>
+                                        <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                <%--end thumbnail--%>
+            </div>
+        </div>
+    </div>
+
+</c:when>
+<c:otherwise>
+
+    <div class="containe-fluidr">
+        <div class="row">
+            <div class="col-lg-6" style="padding: 0px; margin: 0px">
+                <div id="map"  class="sizeContent2" class="col-md-6"></div>
+            </div>
+
+            <div class="col-lg-6 hidden-md-down" style="box-shadow: -5px 4px 10px #888888; margin-left: 0px; height: calc(100% - 65px )">
+                Logged Out Text
+            </div>
+        </div>
+    </div>
+
+    </c:otherwise>
+</c:choose>
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%--old way of doing things--%>
+
+<%--<c:choose>--%>
+    <%--<c:when test="${loggedInUser != 'anonymousUser'}">--%>
+
+
+            <%--<div id="map" style="width: 50%; margin-top: 130px; position:absolute; height: calc(100% - 130px ); left:0px; top:0px; bottom:0px; "></div>--%>
+
+            <%--<div style="width: 50%; margin-top: 130px; position:absolute;margin-bottom: -300; height: calc(100% - 130px ); right:0px; top:0px; bottom:-500px; box-shadow: -5px 0px 10px #888888;">text</div>--%>
+
+    <%--</c:when>--%>
+    <%--<c:otherwise>--%>
+
+        <%--<div id="map" style="width: 50%; margin-top: 65px;  position:absolute; height: 100%; left:0px; top:0px; bottom:0px; "></div>--%>
+
+        <%--<div style="width: 50%; margin-top: 65px; margin-bottom: -400; position:absolute; height: 100%; right:0px; top:0px; bottom:0px; box-shadow: -5px 0px 10px #888888;">text</div>--%>
+    <%--</c:otherwise>--%>
+<%--</c:choose>--%>
 
 
 

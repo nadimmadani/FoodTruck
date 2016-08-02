@@ -1,6 +1,5 @@
 <%@ include file="../includes/header.jsp" %>
-<%@ include file="../includes/Navbar.jsp" %>
-<%@ include file="subnav_admin.jsp" %>
+
 
 <script>
     $(document).ready(function () {
@@ -146,7 +145,7 @@
                                     <div class="slider round"></div>
                                 </label>
                             </td>
-                            <td><a href="/admin/editlist/${truck.id}"><button class="btn btn-default" type="button"  >Edit</button></a></td>
+                            <td><a href="/admin/truckedit/${truck.id}"><button class="btn btn-default" type="button">Edit</button></a></td>
                             <td><button class="btn btn-default" type="button" onclick="deleteTruck(${truck.id})" >Delete</button></td>
                         </tr>
                     </c:forEach>

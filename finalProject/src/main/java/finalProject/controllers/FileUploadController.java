@@ -66,6 +66,8 @@ public class FileUploadController {
                                    RedirectAttributes redirectAttributes) {
 
         if (!file.isEmpty()) {
+
+            String imagePath = Paths.get(ROOT, file.getOriginalFilename()).toAbsolutePath().toString();
             try {
                 Files.copy(file.getInputStream(), Paths.get(ROOT, file.getOriginalFilename()));
                 redirectAttributes.addFlashAttribute("message",
@@ -77,7 +79,9 @@ public class FileUploadController {
             redirectAttributes.addFlashAttribute("message", "Failed to upload " + file.getOriginalFilename() + " because it was empty");
         }
 
-        return "redirect:/admin/addtruck/";
+
+
+        return ":/admin/addtruck/";
     }
 
 }

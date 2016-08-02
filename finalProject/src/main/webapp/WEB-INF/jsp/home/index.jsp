@@ -1,6 +1,5 @@
 <%@ include file="../includes/header.jsp" %>
-<%@ include file="../includes/Navbar.jsp" %>
-<%@ include file="../admin/subnav_admin.jsp" %>
+
 
 
 <div class="container">

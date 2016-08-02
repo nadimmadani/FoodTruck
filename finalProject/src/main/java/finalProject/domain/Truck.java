@@ -24,6 +24,7 @@ public class Truck {
     private String truckName;
     private String truckDescription;
     private String isRunning;
+    private String imagePath;
 
     public Truck() {}
 
@@ -87,5 +88,13 @@ public class Truck {
 
     public void setIsRunning(String isRunning) {
         this.isRunning = isRunning;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

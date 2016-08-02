@@ -24,7 +24,14 @@
     <%--<c:url value="/webjars/bootstrap/3.3.4/css/bootstrap.min.css" var="bootstrapCSS" />--%>
     <%--<link href="${bootstrapCSS}" rel="stylesheet" media="screen">--%>
 
+    <c:url value="../../../static/css/map.css" var="mapCSS" />
+    <link href="${mapCSS}" rel="stylesheet" media="screen">
+
     <title> Food Truck Locator</title>
+
+    <%@ include file="../includes/Navbar.jsp" %>
+
+    <%@ include file="../admin/subnav_admin.jsp" %>
 
 </head>
 <body>

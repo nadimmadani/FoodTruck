@@ -1,0 +1,27 @@
+.sizeContent {
+    width: 100%;
+    height: calc(100% - 130px);
+    padding: 0px;
+    margin: 0px;
+}
+
+.sizeContent2 {
+    width: 100%;
+    height: calc(100% - 65px);
+    padding: 0px;
+    margin: 0px;
+}
+
+#contentLoggedIn {
+    box-shadow: -5px 4px 10px #888888;
+    margin-left: 0px;
+    height: calc(100% - 130px );
+}
+
+@media screen and (max-width: 992px) {
+
+    #contentLoggedIn {
+        display: none !important;
+    }
+
+}

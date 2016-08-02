@@ -134,10 +134,10 @@ public class AdminController {
     public String getEditTruck(@PathVariable int id, Model model) {
         Truck truckToUpdate = truckService.getTruckById(id);
 
-        model.addAttribute("newTruck", truckToUpdate);
-        model.addAttribute("adminVO", new AdminVO());
+        model.addAttribute("truck", truckToUpdate);
 
-        return "/admin/truck_edit";
+
+        return "admin/truck_edit";
     }
 
     //region HELPER METHODS

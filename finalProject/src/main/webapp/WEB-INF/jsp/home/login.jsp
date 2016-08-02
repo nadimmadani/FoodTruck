@@ -1,5 +1,5 @@
 <%@include file="../includes/header.jsp"%>
-<%@ include file="../includes/Navbar.jsp" %>
+
 
 <div class="container blueBackground">
     <br/>

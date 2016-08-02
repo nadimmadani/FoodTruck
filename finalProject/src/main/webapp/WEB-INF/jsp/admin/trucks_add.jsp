@@ -1,6 +1,5 @@
 <%@ include file="../includes/header.jsp" %>
-<%@ include file="../includes/Navbar.jsp" %>
-<%@ include file="subnav_admin.jsp" %>
+
 
 <html xmlns:th="http://www.thymeleaf.org">
 

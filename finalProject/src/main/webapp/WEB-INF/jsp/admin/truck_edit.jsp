@@ -1,24 +1,21 @@
 <%@ include file="../includes/header.jsp" %>
-<%@ include file="../includes/Navbar.jsp" %>
-<%@ include file="subnav_admin.jsp" %>
-
 <script>
-    $(document).ready(function () {
-
-        $('.txtbox').on("change", function () {
-            var values = this.id.split("z");
-            var truckId = values[1];
-            console.log("Text box change");
-//            console.log(truckId);
-//            var ver = $('#ver' + truckId).attr("value");
-//            console.log(ver);
-//            console.log($('#ver' + truckId));
-//            console.log($('#namez' + truckId).val());
-            updateTruck(truckId);
-
-        })
-
-    });
+//    $(document).ready(function () {
+//
+//        $('.txtbox').on("change", function () {
+//            var values = this.id.split("z");
+//            var truckId = values[1];
+//            console.log("Text box change");
+////            console.log(truckId);
+////            var ver = $('#ver' + truckId).attr("value");
+////            console.log(ver);
+////            console.log($('#ver' + truckId));
+////            console.log($('#namez' + truckId).val());
+//            updateTruck(truckId);
+//
+//        })
+//
+//    });
     //    function getCords() {
 
     var cords;
@@ -51,7 +48,8 @@
 
         var ver = $('#ver' + id).attr("value");
         var name = $('#namez' + id).val();
-//        console.log("name: " + name);
+
+        var imagePath = $('#file.rel').val();
 
         var desc = $('#descz' + id).val();
         var isRunning = $('#isRunning'+ id + ' input:checked');
@@ -75,7 +73,8 @@
             "truckLocation":truckLocation,
             "truckName": name,
             "truckDescription": desc,
-            "isRunning": isRunningValue
+            "isRunning": isRunningValue,
+            "imagePath": imagePath
         };
 //        console.log("=============")
 //        console.log(truckToUpdate);
@@ -96,39 +95,93 @@
                 $('#ver' + id).val(ver++);
                 console.log("success");
 //                console.log(data);
+                console.log(imagePath);
             },
             error: function (data) {
                 var a = 2;
+               console.log(imagePath);
             }
         });
     }
 
 </script>
 
-<div class="col-sm-12">
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Truck Name</th>
-            <th>Description</th>
-            <th>Active</th>
-        </tr>
-        </thead>
-        <form:form cssClass="form-horizontal" modelAttribute="adminVo" action="/admin/editist/${truck.id}" method="post">
+<div class="container">
+    <div class="row">
+        <h4 class="text-center">Edit Truck</h4>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-9 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+            <form:form cssClass="form-horizontal" modelAttribute="truck" enctype="multipart/form-data" action="/upload" method="post">
+            <hidden
+            <hidden id="imagepathz${truck.imagePath}" value="${newTruck.imagePath}"></hidden>
 
-        <tr>
-            <td>
-                    ${truck.id}
-            </td>
-            <td>
-                    <%--<input type="text" class="form-control txtbox" id="namez${truck.id}" value="${truck.truckName}"/>--%>
-                <input type="text" class="form-control txtbox" id="namez${truck.id}" value="${truck.truckName}"/>
-            </td>
-                <td>
-            <input type="text" class="form-control txtbox" id="descz${truck.id}" value="${truck.truckDescription}"/>
-        </td>
+            <fieldset>
 
-        </form:form>
+                <div class="row">
+                    <div class="form-group">
+
+                        <div class="col-sm-2">
+                            <label for="namez${truck.id}" class="control-label">Truck Name</label>
+                        </div>
+                        <div class="col-sm-10">
+
+                            <form:input path="truckName" type="text" class="form-control txtbox" id="namez${truck.id}" value="${newTruck.truckName}"></form:input>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-sm-2">
+                            <label for="descz${truck.id}" class="control-label">Truck Description</label>
+                        </div>
+                        <div class="col-sm-10">
+
+                            <form:input type="text" path="truckDescription" class="form-control txtbox" id="descz${truck.id}" value="${truck.truckDescription}"></form:input>
+
+                                <%--upload--%>
+
+
+                            <div th:if="${message}">
+                                <h2 th:text="${message}"/>
+                            </div>
+
+                            <div>
+                                <%--<form method="POST" enctype="multipart/form-data" action="/upload">--%>
+                                    <table>
+                                        <tr><td>File to upload:</td><td><input type="file" name="file" /></td></tr>
+                                        <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
+                                    </table>
+                                <%--</form>--%>
+                            </div>
+
+                            <div>
+                                <ul style="list-style: none;">
+                                    <li th:each="file : ${files}">
+                                        <a th:href="${file.href}" th:text="${file.rel}" />
+                                    </li>
+                                </ul>
+                            </div>
+
+                                <%--//end of upload--%>
+
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+            </form:form>
+
+                <div class="form-group">
+                    <%--<div class="col-lg-10 col-lg-offset-2">--%>
+                        <%--<div class="btn-group" role="group">--%>
+                            <a href="../trucklist"><button onclick="updateTruck(${truck.id})" class="btn btn-primary">Save</button></a>
+                        <%--</div>--%>
+                        <%--<div class="btn-group" role="group">--%>
+                            <button type="reset" value="cancel" class="btn btn-default">Cancel</button>
+                        <%--</div>--%>
+                    <%--</div>--%>
+                </div>
 
 <%@ include file="../includes/footer.jsp" %>
