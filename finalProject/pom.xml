@@ -2,6 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.astontech.hr</groupId>
     <artifactId>com.astontech.hr</artifactId>
+    <packaging>war</packaging>
     <version>1.0-SNAPSHOT</version>
     <parent>
         <groupId>org.springframework.boot</groupId>
