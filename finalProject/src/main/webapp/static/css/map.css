@@ -15,13 +15,29 @@
 #contentLoggedIn {
     box-shadow: -5px 4px 10px #888888;
     margin-left: 0px;
+    background-color: #e8e8e8 !important;
     height: calc(100% - 130px );
+    overflow: hidden;
+    overflow: auto;
+
+
 }
 
 @media screen and (max-width: 992px) {
 
     #contentLoggedIn {
         display: none !important;
+
     }
 
+}
+
+.listAllVehicles
+{
+    margin-bottom: 5px;
+    background-color: white !important;
+}
+
+body {
+    overflow-x:hidden !important;
 }

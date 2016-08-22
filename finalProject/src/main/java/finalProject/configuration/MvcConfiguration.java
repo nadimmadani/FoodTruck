@@ -11,9 +11,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 /**
  * Created by ryanmada1 on 6/14/2016.
  */
+
 @Configuration
 @EnableWebMvc
 public class MvcConfiguration extends WebMvcConfigurerAdapter {
+
+
 
     @Bean
     public ViewResolver getViewResolver() {

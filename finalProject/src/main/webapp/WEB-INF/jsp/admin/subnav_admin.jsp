@@ -19,6 +19,7 @@
                                 <%--PAGE LINKS--%>
                             <li><a href="/admin/addtruck/">Add</a></li>
                             <li><a href="#">Profile</a></li>
+                            <li><a href="#" data-toggle="modal" data-target="#myModal">Open Modal</a></li>
                         </ul>
                     </div>
                 </div>
@@ -29,3 +30,7 @@
 
     </c:otherwise>
 </c:choose>
+
+<%--<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">--%>
+<%--Launch demo modal--%>
+<%--</button>--%>
