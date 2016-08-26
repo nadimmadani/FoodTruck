@@ -30,6 +30,12 @@ public class UpdateTruckController {
     @Autowired
     LocationService locationService;
 
+    @RequestMapping("truck/{id}")
+    public Truck getTruckById(@PathVariable int id) {
+
+        return truckService.getTruckById(id);
+    }
+
     @RequestMapping("list")
     public Iterable<Truck> listAllTrucks() {
 

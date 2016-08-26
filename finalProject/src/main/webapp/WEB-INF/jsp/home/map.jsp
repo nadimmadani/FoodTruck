@@ -5,113 +5,139 @@
 
 <%--<div id="map" style="width: 50%; height: 50%; max-width: 100%"></div>--%>
 <script>
-var locations = [];
-$.ajax({
-//            headers: {
-//                'Accept': 'application/json',
-//                'Content-Type': 'application/json'
-//            },
-type: "get",
-url: "/rest/maplist/",
-dataType: "json",
-success: function (data) {
-console.log("success");
-console.log(data);
-for(var i = 0; i < data.length; i++){
-if(data[i].isRunning == "true") {
-console.log(data[i].truckName + data[i].truckLocation.coordinates + i);
 
-var s =  data[i].truckLocation.coordinates;
-var res = s.split(",");
-var lat = +res[0];
-var long = +res[1];
-//                    s.index
+    var locations = [];
+    $.ajax({
+    //            headers: {
+    //                'Accept': 'application/json',
+    //                'Content-Type': 'application/json'
+    //            },
+    type: "get",
+    url: "/rest/maplist/",
+    dataType: "json",
+    success: function (data) {
+    console.log("success");
+    console.log(data);
+    for(var i = 0; i < data.length; i++){
+    if(data[i].isRunning == "true") {
+    console.log(data[i].truckName + data[i].truckLocation.coordinates + i);
 
-console.log("Lat" + lat);
-console.log(data[i]);
-console.log("Long" + long);
+    var s =  data[i].truckLocation.coordinates;
+    var res = s.split(",");
+    var lat = +res[0];
+    var long = +res[1];
+    //                    s.index
 
-console.log("truckName: " + data[i].truckName);
+    console.log("Lat" + lat);
+    console.log(data[i]);
+    console.log("Long" + long);
 
-locations.push(
-[ data[i].truckName, lat, long, i, data[i].id ]);
-}
-}
-locations.push(['Ryans Taco Truck', 44.977230, -93.000, 4]);
+    console.log("truckName: " + data[i].truckName);
 
-},
-error: function (data) {
-var a = 2;
-}
+    locations.push(
+    [ data[i].truckName, lat, long, i, data[i].id ]);
+    }
+    }
+    locations.push(['Ryans Taco Truck', 44.977230, -93.000, 4]);
 
-});
-
-function makeNewLocation(truckName, lat, long, i, id) {
-    return { tName: truckName, latitude: lat, longitude: long, idx:i, truckId:id };
-}
-
-var pos;
-navigator.geolocation.getCurrentPosition(function(position) {
-
-pos = {
-lat: position.coords.latitude,
-lng: position.coords.longitude
-
-};
-console.log(pos);
-
-console.log("outside" + pos);
-var map = new google.maps.Map(document.getElementById('map'), {
-
-    zoom: 10,
-    center: new google.maps.LatLng(pos.lat, pos.lng),
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-});
-
-var infowindow = new google.maps.InfoWindow();
-
-var marker, i;
-
-console.log("test");
-
-//        var goldStar = {
-//            path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
-//            fillColor: 'yellow',
-//            fillOpacity: 0.5,
-//            scale:.15,
-//            strokeColor: 'gold',
-//            strokeWeight: 1
-//        };
-
-for (i = 0; i < locations.length; i++) {
-    console.log(locations[i]);
-    marker = new google.maps.Marker({
-    position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-    icon: "/static/images/van.png",
-    map: map
-});
-
-google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
-    return function() {
-        infowindow.setContent(locations[i][0]);
-        infowindow.open(map, marker);
-        console.log("This is the truck id: " + locations[i][4]);
-//        $('.listAllVehicles').hide();
+    },
+    error: function (data) {
+    var a = 2;
     }
 
-    })(marker, i));
+    });
 
+    function makeNewLocation(truckName, lat, long, i, id) {
+        return { tName: truckName, latitude: lat, longitude: long, idx:i, truckId:id };
+    }
 
-    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+    var pos;
+    navigator.geolocation.getCurrentPosition(function(position) {
+
+    pos = {
+    lat: position.coords.latitude,
+    lng: position.coords.longitude
+
+    };
+    console.log(pos);
+
+    console.log("outside" + pos);
+    var map = new google.maps.Map(document.getElementById('map'), {
+
+        zoom: 10,
+        center: new google.maps.LatLng(pos.lat, pos.lng),
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+    });
+
+    var infowindow = new google.maps.InfoWindow();
+
+    var marker, i;
+
+    console.log("test");
+
+    //        var goldStar = {
+    //            path: 'M 125,5 155,90 245,90 175,145 200,230 125,180 50,230 75,145 5,90 95,90 z',
+    //            fillColor: 'yellow',
+    //            fillOpacity: 0.5,
+    //            scale:.15,
+    //            strokeColor: 'gold',
+    //            strokeWeight: 1
+    //        };
+
+    for (i = 0; i < locations.length; i++) {
+        console.log(locations[i]);
+        marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        icon: "/static/images/van.png",
+        map: map
+    });
+
+    google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
         return function() {
-            console.log("This is the truck id: " + locations[i][4]);
-            $('#myModal').modal('show');
+            infowindow.setContent(locations[i][0]);
+    //
+            infowindow.open(map, marker);
         }
 
-    })(marker, i));
+        })(marker, i));
 
-    }
-});
+        var titleAppend = 0;
+        google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function(data) {
+                var truckId = locations[i][4];
+                console.log("This is the truck id: " + locations[i][4]);
+
+                var truckList = $.ajax({
+                    type: "get",
+                    url: "/rest/truck/" + truckId,
+                    dataType: "json",
+                    success: function (data) {
+                        console.log("success");
+                        console.log(data);
+                        console.log(data.truckName);
+
+                        var truckName = data.truckName;
+                        var truckId = data.id;
+                        var truckDesc = data.truckDescription;
+
+                        $('#myModal').modal('show');
+
+                        if(titleAppend === 0) {
+                            $('#myModalLabel').append(truckName);
+                            $('#myModalDecription').append(truckDesc);
+                            titleAppend++;
+                            console.log(titleAppend);
+                        }
+                    }
+                });
+            }
+
+        })(marker, i));
+
+        }
+    });
+
+
 </script>
 
 
@@ -126,6 +152,7 @@ google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
             </div>
             <div class="col-lg-6 hidden-md-down" id="contentLoggedIn">
 
+                <c:forEach var="truck" items="${newTruckList}">
                     <%--begin thumbnail--%>
                         <a href="#myModal"><div class="row listAllVehicles">
                             <div class="col-sm-4 col-md-4">
@@ -141,7 +168,7 @@ google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
                                 </div>
                             </div></a>
                         </div>
-
+                    </c:forEach>
                 <%--end thumbnail--%>
 
                         <div class="row listAllVehicles">
@@ -241,10 +268,10 @@ google.maps.event.addListener(marker, 'mouseover', (function(marker, i) {
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
             <div class="modal-body">
-                ...
+                <p id="myModalDecription"></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
